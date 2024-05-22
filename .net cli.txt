@@ -13,7 +13,7 @@
 	- add a project to a solution
 	dotnet sln add <projectpath/projectName.csproj>
 	
-	- build the project
+	- build the project to check for any error
 	dotnet build
 	
 	- run the project
