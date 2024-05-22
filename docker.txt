@@ -1,0 +1,192 @@
+=== TERMINOLOGIES ===
+host: my machine
+src = current work directory (pwd) on my host machine
+target = directory inside the container
+DockerFile são linhas de comandos para montar uma imagem
+DockerHub é um serviço de armazenamento de imagens
+
+(1) INSTALL DOCKER
+
+(2) CREATE DOCKERFILE
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+EXPOSE 3000
+
+(3) CREATE AN IMAGE
+docker build -t minha-imagem .
+
+-t >> define image name
+.  >> Search for dockerfile
+
+(4) CREATE A CONTAINER
+docker run -dp 127.0.0.1:3000:3000 minha-imagem
+docker run -d -p <host_port>:<container_port> <image_name>
+
+(5) DOCKER HUB
+
+- login to docker hub
+docker login -u <user_name>
+
+- create tag
+docker tag <source_image> <user_name>/<repository_name>
+
+- push image
+docker push <user_name>/<repository_name>
+
+(6) CREATE A VOLUME
+
+- remove the previous container
+docker stop <container_id>
+docker rm <container_id>
+
+- create a volume
+docker create volume todo-db
+
+- mount volume >> store data
+docker run \
+	-dp 127.0.0.1:3000:3000 \
+	--mount type=volume,src=todo-db,target=/etc/todos \
+	minha-imagem
+
+- bind mount >> refresh data
+docker run -dp 127.0.0.1:3000:3000 \
+	-w /app --mount type=bind, src="$(pwd)",target=/app \
+	node:18-alpine \
+	sh -c "yarn install && yarn run dev"
+
+- chech if it's working
+docker logs -f <container-id>
+
+
+(7) CREATE NETWORK
+
+- concept
+allow communication between containers
+
+- create network
+docker network create todo-app
+
+- create a mysql network to be used by other containers
+docker run -d \
+	--mount type=volume,src=todo-mysql-data,target=/var/lib/mysql \
+	--network todo-app --network-alias mysql \
+	-e MYSQL_ROOT_PASSWORD=secret \ 
+	-e MYSQL_DATABASE=todos
+	mysql:8.0
+
+- check if mysql database is connected
+step 1: docker exec -it <mysql-container-id> mysql -u root -p
+step 2: SHOW DATABASES
+step 3: exit
+
+- create a node app container and connect with mysql
+docker run -dp 127.0.0.1:3000:3000 \
+	-w /app -v "$(pwd):/app" \
+	--network todo-app \
+	-e MYSQL_HOST=mysql \
+  	-e MYSQL_USER=root \
+  	-e MYSQL_PASSWORD=secret \
+  	-e MYSQL_DB=todos \
+	node:18-alpine \
+	sh -c "yarn install && yarn run dev"
+
+(8) CREATE COMPOSE
+
+- create a compose file
+compose.yaml
+
+services:
+  app:
+    image: node:18-alpine
+    command: sh -c "yarn install && yarn run dev"
+    ports:
+      - 127.0.0.1:3000:3000
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: todos
+
+volumes:
+  todo-mysql-data:
+
+
+- run the application
+docker compose up -d
+
+====== COMMANDS ======
+
+- listing images
+docker image ls
+
+- listing containers
+docker ps: containers em execução
+docker ps -a: todos os container
+
+- remove image
+docker rmi <image_name>
+
+- stop container
+docker stop <container_id>
+
+- start a container that already exists
+docker start -i <container_name>
+
+- remove container
+docker rm <container_id>
+
+- stop and remove container
+rm -f <container_id>
+
+- search for an image on docker hub
+docker search <image_name>
+
+- pull an image from docker hub
+docker pull <image_name>
+
+- remover volume
+docker volume rm <volume_name>
+
+- check volume directory
+docker volume inspect todo-db
+
+- list of volumes
+docker volume ls
+
+- remove all containers
+docker rm $(docker ps -a)
+
+- remove all images
+docker rmi $(docker image ls)
+
+- access the container folder
+docker exec -it <container_name> bin/bash
+
+- como saber onde um container armazena seus dados?
+
+
+
+
+
+
+
+
+
+
+
+
+
