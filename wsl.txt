@@ -1,0 +1,49 @@
+website: 
+- https://learn.microsoft.com/en-us/windows/wsl/install
+- https://learn.microsoft.com/en-us/windows/wsl/basic-commands#unregister-or-uninstall-a-linux-distribution
+- move wsl to another directory: https://www.youtube.com/watch?v=13jo3ppi7a0&ab_channel=TroubleChute
+
+==== Install wsl ====
+wsl --install  (ubuntu as default)
+
+==== Update and upgrade packages ====
+sudo apt update && sudo apt upgrade
+
+==== List available Linux distributions ====
+wsl --list --online
+
+==== List installed Linux distributions ====
+wsl --list --verbose
+wsl --list --running     --> distributions currently running 
+
+==== Update WSL ====
+wsl --update
+
+==== Check WSL status ====
+wsl --status
+
+==== Check WSL version ====
+wsl --version
+
+==== Help command ==== 
+wsl --help
+
+==== Unregister or uninstall a Linux distribution ==== 
+wsl --unregister <DistributionName>
+
+==== Shutdown ==== 
+wsl --shutdown
+
+terminates all running distributions
+
+Copy
+wsl --shutdown
+
+
+
+
+
+
+
+
+
