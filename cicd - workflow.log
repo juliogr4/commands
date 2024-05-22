@@ -1,0 +1,90 @@
+[ --- CICD Workflow --- ]
+
+Developer ---> GitHub ---> Jenkins ---> Maven ---> SonarQube ---> Docker ---> Trivy ---> GitHub ---> ArgoCD ---> Kubernetes ---> Slack
+
+1. Developer pushes the code to GitHub (SCM);
+
+2. GitHub sends a webhook to Jenkins, notifying it of the new updates in the repository;
+
+3. Jenkins runs the build process using Maven, which compiles the Java code and runs automated tests (Dotnet CLI for C#);
+
+4. After the build, Jenkins invokes SonarQube to analyze code quality. SonarQube checks for bugs, vulnerabilities, and maintenance issues;
+
+5. If the code passes the quality analysis, Jenkins builds the Docker image and push to Docker Hub Registry;
+
+6. The newly created Docker image is scanned by Trivy for security vulnerabilities;
+
+7. Update the DevOps manifest files (such as YAML) and create a new tag in the GitHub repository;
+
+8. ArgoCD detects the new tag and changes in the manifest files, then starts deploying the new version to the Kubernetes cluster;
+
+9. A notification is sent to a Slack channel indicating whether the deployment was successful or failed;
+
+
+[ --- Terminologies --- ]
+
+>> DNS (Domain Name System)
+	Convert searched domain names (www.amazon.com) into ip address (192.0.2.44)
+									 (hostname)
+									
+Reverse Proxy (Proxy Reverso)
+	It's a proxy server that stands between the client and the server
+
+	1.Internet <-------> 2. Proxy <---> 3. Web Server
+								(Internal Network)
+								
+1. A client requests a web resource.
+2. The reverse proxy intercepts and inspects the request. If the resource is cached, it serves it. Otherwise, it forwards the request to the internal web server.
+3. The reverse proxy delivers the requested resource to the client, serving as an intermediary between the client and the web server.
+
+>> TLS/SSL certificate
+	A TLS/SSL certificate, is a protocol that allows web browsers to securely connect to websites using encrypted networks
+	
+	Internet <-------> HTTP <-------> Server
+				(Insecure connection)
+
+	Internet <-------> HTTPS <-------> Server
+				(Secure connection)
+
+>> SSH (Secure Shell)
+	It's a network communication protocol that enables computers to communicate over an unsercured network
+
+>> Host vs Guest Operating System
+	Host: Operating system that runs on the hardware (installed by default)
+	Guest: Operating system that runs on a virtual machine
+
+[ --- Setup Virtual Machines on Ubuntu --- ]
+
+username: root-ubuntu
+
+(1) Virtual Box
+	(a) Download the VirtualBox
+	(b) Download an Operating System Image (ex: Ubuntu)
+	(c) Create a Virtual Machine (VM) and set the host and guest networking to 22 for ssh
+	(d) Install ssh >> sudo apt-get install openssh-server
+
+(2) CMD
+	(a) Open CMD
+	(b) type "ipconfig /all"
+	(c) Get the VM IPv4 address
+
+(3) WSL
+	(a) ssh -p host_port username@VmIPaddress
+	
+(4) Generate SSH-KEY (optional)
+	https://www.ssh.com/academy/ssh/keygen
+
+	(a) Open the VM terminal
+	(b) cd ~/.ssh
+	(c) ssh-keygen
+	(d) cat ~/.ssh/id_rsa.pub
+	
+	
+(5) Set up DNS
+
+
+1. Create a Virtual Machine for each UI interface (EX: Jenkins, SonarQube, Kubernetes, ArgoCD)
+2. Create DNS entries for each ip addresses. Then, create reverse proxies and tls certificates for each one;
+
+[ --- Setup Jenkins --- ]
+
