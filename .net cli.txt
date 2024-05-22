@@ -1,0 +1,31 @@
+.NET CLI
+	
+	- create a project template
+	dotnet new <template> --name <project_name>
+	
+	template: webapi | classlib | console | grpc | proto | sln
+
+	options:
+		--name (-n): project name
+		--output (-o): location to place the generated output
+		--help (-h): Prints out help for the command
+	
+	- add a project to a solution
+	dotnet sln add <projectpath/projectName.csproj>
+	
+	- build the project
+	dotnet build
+	
+	- run the project
+	dotnet run					# run the project
+	dotnet watch run 			# run the project and monitor any changes
+	
+	- package dependencies
+	dotnet add package <package_name>
+	dotnet remove package <package_name>
+	
+	- publish the app
+	dotnet publish -c Release
+	
+	
+	
