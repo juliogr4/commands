@@ -1,0 +1,57 @@
+=== FLOW ===
+
+(1) working directory | working tree | workspace
+(2) staging area | index
+(3) local repository (HEAD commit atual)
+(4) remote repository
+
+(1) > (2): git add
+(2) > (3): git commit
+(3) > (4): git push
+(4) > (1): git clone / pull (copy changes from remote repo)
+(4) > (3): git fetch (copy changes from remote repo)
+(3) > (1): git reset <commit> (undo changes) | git merge (update the workspace)
+(1) > (3): git commit -a
+(2) > (1): git reset <file>
+
+=== stop the git init ===
+rd /s /q .git
+
+== initialize a repo ===
+git init
+
+=== git status ===
+M: modified and not staged
+D: deleted
+A: on stage
+MM: file modified, staged and then modified again
+
+=== process ===
+
+(1) create a new repository on the command line
+echo "# task-app" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/juliogr4/task-app.git
+git push -u origin main
+
+(2) or push to an existing repository from the command line
+git remote add origin <gitHub link>
+git branch -M main
+git push -u origin main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
