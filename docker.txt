@@ -2,8 +2,8 @@
 host: my machine
 src = current work directory (pwd) on my host machine
 target = directory inside the container
-DockerFile são linhas de comandos para montar uma imagem
-DockerHub é um serviço de armazenamento de imagens
+DockerFile are command lines to build an image
+DockerHub is a registry repositpory for images
 
 (1) INSTALL DOCKER
 
@@ -60,7 +60,6 @@ docker run -dp 127.0.0.1:3000:3000 \
 - chech if it's working
 docker logs -f <container-id>
 
-
 (7) CREATE NETWORK
 
 - concept
@@ -93,7 +92,7 @@ docker run -dp 127.0.0.1:3000:3000 \
 	node:18-alpine \
 	sh -c "yarn install && yarn run dev"
 
-(8) CREATE COMPOSE
+(8) CREATE DOCKER COMPOSE
 
 - create a compose file
 compose.yaml
@@ -128,7 +127,7 @@ volumes:
 - run the application
 docker compose up -d
 
-====== COMMANDS ======
+====== EXTRA COMMANDS ======
 
 - listing images
 docker image ls
@@ -158,10 +157,10 @@ docker search <image_name>
 - pull an image from docker hub
 docker pull <image_name>
 
-- remover volume
+- remove volume
 docker volume rm <volume_name>
 
-- check volume directory
+- inspect volume
 docker volume inspect todo-db
 
 - list of volumes
@@ -175,8 +174,6 @@ docker rmi $(docker image ls)
 
 - access the container folder
 docker exec -it <container_name> bin/bash
-
-- como saber onde um container armazena seus dados?
 
 
 
