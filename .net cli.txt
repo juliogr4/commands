@@ -26,6 +26,9 @@
 	
 	- publish the app
 	dotnet publish -c Release
+
+	- reference a project into another project (Domain is being "injected" into the Application)
+	dotnet add Application reference Domain
 	
 	
 	
