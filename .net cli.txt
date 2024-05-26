@@ -32,6 +32,8 @@
 
 	- run a web api project
 	dotnet run --project ProjectName
-	
+
+	- migration on cli
+	dotnet ef migrations add First -o ./Employee.Infrastructure --project ./Employee.Infrastructure --startup-project ./Employee.Presentation/Employee.Api
 	
 	
