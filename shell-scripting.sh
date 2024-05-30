@@ -1,3 +1,7 @@
+
+# access the linux root
+sudo su
+
 # ===== FUNCTIONS =====
 
 function lsFunction {
