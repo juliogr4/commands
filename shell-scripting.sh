@@ -1,5 +1,6 @@
 # access the linux root
-sudo su
+(option 1) sudo su
+(option 2) sudo -i
 
 # listing all files (expect the hidden ones)
 ls
