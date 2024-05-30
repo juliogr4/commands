@@ -22,6 +22,9 @@ ls -F
 # current directory
 pwd
 
+# open or edit a file
+vi <filename>
+
 # Wildcards - character
 * Matches any characters
 ? Matches any single character
