@@ -2,6 +2,9 @@
 (option 1) sudo su
 (option 2) sudo -i
 
+# change CLI
+PS1=$
+
 # listing all files (expect the hidden ones)
 ls
 
