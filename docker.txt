@@ -173,7 +173,7 @@ docker rm $(docker ps -a)
 docker rmi $(docker image ls)
 
 - access the container folder
-docker exec -it <container_name> bin/bash
+docker exec -it <container_name> /bin/bash
 
 
 
