@@ -1,0 +1,7 @@
+# DOWNLOAD 
+  - Use the Prebuilt binaries for download;
+  - Put the path "C:\Program Files\Hugo\bin" on the environment variables
+
+# START
+hugo new site quickstart      # create project
+cd quickstart    # access the project
