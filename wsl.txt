@@ -3,6 +3,9 @@ website:
 - https://learn.microsoft.com/en-us/windows/wsl/basic-commands#unregister-or-uninstall-a-linux-distribution
 - move wsl to another directory: https://www.youtube.com/watch?v=13jo3ppi7a0&ab_channel=TroubleChute
 
+==== linux architecture ====
+dpkg --print-architecture
+
 ==== Install wsl ====
 wsl --install  (ubuntu as default)
 
