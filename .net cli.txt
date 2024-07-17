@@ -21,7 +21,7 @@
 	dotnet watch run 			# run the project and monitor any changes
 	
 	- package dependencies
-	dotnet add package <package_name>
+	dotnet add <path> package <package_name>
 	dotnet remove package <package_name>
 	
 	- publish the app
