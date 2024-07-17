@@ -17,7 +17,7 @@
 	dotnet build
 	
 	- run the project
-	dotnet run					# run the project
+	dotnet run --project			# run the project
 	dotnet watch run 			# run the project and monitor any changes
 	
 	- package dependencies
